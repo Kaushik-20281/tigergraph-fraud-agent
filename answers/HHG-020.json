@@ -1,0 +1,120 @@
+{
+  "case_id": "HHG-020",
+  "flagged_txn_id": "3509359",
+  "trigger_type": "risk_score",
+  "trigger_text": "Real-time model scored transaction 3509359 ($125.08, online) at 0.52. Review and decide.",
+  "customer_id": "C12265",
+  "card_id": "C12265-K2",
+  "pipeline_version": "v2-grounded",
+  "policy_source": "internal approval matrix (action-tier: auto-execute / analyst approval / risk-committee approval)",
+  "status": "completed",
+  "risk_score": 52,
+  "anomaly_type": "multiple_transactions_same_card",
+  "uncertainty_before": "Medium",
+  "uncertainty_after": "Medium",
+  "action_before_evidence": "request_more_evidence",
+  "approval_route_before_evidence": "auto_execute",
+  "needs_more_evidence": true,
+  "evidence_request": {
+    "requested": "transaction timestamps, transaction amounts, IP addresses, device identifiers, shipping and billing addresses for transaction 3509359",
+    "status": "no_response",
+    "response": null,
+    "source": "mock_customer_validation_api"
+  },
+  "action_after_evidence": "request_customer_validation",
+  "approval_route_after_evidence": "auto_execute",
+  "requires_human_approval": false,
+  "approval_reason": "'request_customer_validation' routes to auto_execute (internal approval matrix (action-tier: auto-execute / analyst approval / risk-committee approval)).",
+  "sar_required": false,
+  "similar_past_cases_found": 1,
+  "case_memory_note": "1 similar closed case(s) retrieved from the graph.",
+  "forensic_summary": "Transaction 3509359 uses card 10010, which has 111 other transactions (e.g., IDs 3383236, 3448839). No amounts, timestamps, IPs, device IDs, or address data are available, and the ring of related transactions alone does not prove fraud. With moderate risk (52) and medium uncertainty, the prudent step is to request customer validation before any punitive action.",
+  "grounding_status": "passed",
+  "evidence_facts": {
+    "flagged_transaction": "3509359",
+    "cards_linked": [
+      "10010"
+    ],
+    "other_transactions_on_same_card_or_identity": 111,
+    "sample_of_those_transaction_ids": [
+      "3383236",
+      "3448839",
+      "3501890",
+      "3458046",
+      "3099578",
+      "3144210",
+      "3194038",
+      "3162448",
+      "3259414",
+      "3254649"
+    ],
+    "identity_records_linked": 1,
+    "identity_fields_with_values": [],
+    "not_available_in_evidence": [
+      "transaction amounts",
+      "transaction timestamps",
+      "IP addresses",
+      "shipping/billing addresses",
+      "other customers' account identifiers",
+      "device identifiers"
+    ],
+    "caveat": "The 'ring' is only other transactions sharing a card/identity; it is not proof of fraud."
+  },
+  "decision_log": [
+    {
+      "step": "trigger",
+      "time": "2026-09-25T00:06:49+00:00",
+      "detail": "risk_score: Real-time model scored transaction 3509359 ($125.08, online) at 0.52. Review and decide."
+    },
+    {
+      "step": "graph_evidence",
+      "time": "2026-09-25T00:06:50+00:00",
+      "detail": {
+        "cards_linked": [
+          "10010"
+        ],
+        "other_transactions_on_same_card_or_identity": 111,
+        "identity_fields_with_values": []
+      }
+    },
+    {
+      "step": "phase1_assessment",
+      "time": "2026-09-25T00:06:51+00:00",
+      "detail": {
+        "risk_score": 52,
+        "anomaly_type": "multiple_transactions_same_card",
+        "uncertainty": "Medium",
+        "action": "request_more_evidence",
+        "approval_route": "auto_execute"
+      }
+    },
+    {
+      "step": "case_memory",
+      "time": "2026-09-25T00:06:52+00:00",
+      "detail": "1 similar closed case(s) retrieved"
+    },
+    {
+      "step": "evidence_request",
+      "time": "2026-09-25T00:06:52+00:00",
+      "detail": {
+        "requested": "transaction timestamps, transaction amounts, IP addresses, device identifiers, shipping and billing addresses for transaction 3509359",
+        "status": "no_response",
+        "response": null,
+        "source": "mock_customer_validation_api"
+      }
+    },
+    {
+      "step": "phase2_decision",
+      "time": "2026-09-25T00:06:54+00:00",
+      "detail": {
+        "risk_score": 52,
+        "uncertainty": "Medium",
+        "action": "request_customer_validation",
+        "sar_required": false,
+        "approval_route": "auto_execute"
+      }
+    }
+  ],
+  "graph_write_ok": true,
+  "graph_write_error": null
+}

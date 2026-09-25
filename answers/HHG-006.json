@@ -1,0 +1,120 @@
+{
+  "case_id": "HHG-006",
+  "flagged_txn_id": "3476682",
+  "trigger_type": "customer_report",
+  "trigger_text": "Customer C07297 message: 'I never made this $482.12 purchase. Please check my card.' Refers to 3476682.",
+  "customer_id": "C07297",
+  "card_id": "C07297-K1",
+  "pipeline_version": "v2-grounded",
+  "policy_source": "internal approval matrix (action-tier: auto-execute / analyst approval / risk-committee approval)",
+  "status": "completed",
+  "risk_score": 45,
+  "anomaly_type": "unauthorized_transaction",
+  "uncertainty_before": "High",
+  "uncertainty_after": "High",
+  "action_before_evidence": "request_more_evidence",
+  "approval_route_before_evidence": "auto_execute",
+  "needs_more_evidence": true,
+  "evidence_request": {
+    "requested": "transaction timestamp, merchant name, transaction amount confirmation, IP address, device identifier, shipping/billing addresses, and any authentication logs for transaction 3476682",
+    "status": "no_response",
+    "response": null,
+    "source": "mock_customer_validation_api"
+  },
+  "action_after_evidence": "request_customer_validation",
+  "approval_route_after_evidence": "auto_execute",
+  "requires_human_approval": false,
+  "approval_reason": "'request_customer_validation' routes to auto_execute (internal approval matrix (action-tier: auto-execute / analyst approval / risk-committee approval)).",
+  "sar_required": false,
+  "similar_past_cases_found": 1,
+  "case_memory_note": "1 similar closed case(s) retrieved from the graph.",
+  "forensic_summary": "Transaction 3476682 is flagged; it uses card 13729 which has 260 other transactions (IDs listed) but no amounts, timestamps, IPs, device IDs, or address data are available. The requested evidence (timestamp, merchant, amount, IP, device, addresses, auth logs) was not provided, leaving key verification details unknown. High uncertainty persists, so the next step is to request direct customer validation before any further action.",
+  "grounding_status": "passed",
+  "evidence_facts": {
+    "flagged_transaction": "3476682",
+    "cards_linked": [
+      "13729"
+    ],
+    "other_transactions_on_same_card_or_identity": 260,
+    "sample_of_those_transaction_ids": [
+      "3021030",
+      "3146695",
+      "3253890",
+      "3386465",
+      "3414084",
+      "3306994",
+      "3306875",
+      "3012743",
+      "3063297",
+      "3036242"
+    ],
+    "identity_records_linked": 1,
+    "identity_fields_with_values": [],
+    "not_available_in_evidence": [
+      "transaction amounts",
+      "transaction timestamps",
+      "IP addresses",
+      "shipping/billing addresses",
+      "other customers' account identifiers",
+      "device identifiers"
+    ],
+    "caveat": "The 'ring' is only other transactions sharing a card/identity; it is not proof of fraud."
+  },
+  "decision_log": [
+    {
+      "step": "trigger",
+      "time": "2026-09-25T00:16:19+00:00",
+      "detail": "customer_report: Customer C07297 message: 'I never made this $482.12 purchase. Please check my card.' Refers to 3476682."
+    },
+    {
+      "step": "graph_evidence",
+      "time": "2026-09-25T00:16:20+00:00",
+      "detail": {
+        "cards_linked": [
+          "13729"
+        ],
+        "other_transactions_on_same_card_or_identity": 260,
+        "identity_fields_with_values": []
+      }
+    },
+    {
+      "step": "phase1_assessment",
+      "time": "2026-09-25T00:16:22+00:00",
+      "detail": {
+        "risk_score": 45,
+        "anomaly_type": "unauthorized_transaction",
+        "uncertainty": "High",
+        "action": "request_more_evidence",
+        "approval_route": "auto_execute"
+      }
+    },
+    {
+      "step": "case_memory",
+      "time": "2026-09-25T00:16:23+00:00",
+      "detail": "1 similar closed case(s) retrieved"
+    },
+    {
+      "step": "evidence_request",
+      "time": "2026-09-25T00:16:23+00:00",
+      "detail": {
+        "requested": "transaction timestamp, merchant name, transaction amount confirmation, IP address, device identifier, shipping/billing addresses, and any authentication logs for transaction 3476682",
+        "status": "no_response",
+        "response": null,
+        "source": "mock_customer_validation_api"
+      }
+    },
+    {
+      "step": "phase2_decision",
+      "time": "2026-09-25T00:16:24+00:00",
+      "detail": {
+        "risk_score": 45,
+        "uncertainty": "High",
+        "action": "request_customer_validation",
+        "sar_required": false,
+        "approval_route": "auto_execute"
+      }
+    }
+  ],
+  "graph_write_ok": true,
+  "graph_write_error": null
+}

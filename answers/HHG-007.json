@@ -1,0 +1,120 @@
+{
+  "case_id": "HHG-007",
+  "flagged_txn_id": "3514948",
+  "trigger_type": "risk_score",
+  "trigger_text": "Real-time model scored transaction 3514948 ($111.92, in billing region 264.0) at 0.87. Review and decide.",
+  "customer_id": "C09933",
+  "card_id": "C09933-K2",
+  "pipeline_version": "v2-grounded",
+  "policy_source": "internal approval matrix (action-tier: auto-execute / analyst approval / risk-committee approval)",
+  "status": "completed",
+  "risk_score": 87,
+  "anomaly_type": "high_transaction_volume_same_card",
+  "uncertainty_before": "Medium",
+  "uncertainty_after": "Medium",
+  "action_before_evidence": "request_more_evidence",
+  "approval_route_before_evidence": "auto_execute",
+  "needs_more_evidence": true,
+  "evidence_request": {
+    "requested": "transaction timestamps, IP addresses, device identifiers, shipping and billing addresses",
+    "status": "no_response",
+    "response": null,
+    "source": "mock_customer_validation_api"
+  },
+  "action_after_evidence": "block_transaction",
+  "approval_route_after_evidence": "analyst_approval",
+  "requires_human_approval": true,
+  "approval_reason": "'block_transaction' routes to analyst_approval (internal approval matrix (action-tier: auto-execute / analyst approval / risk-committee approval)).",
+  "sar_required": true,
+  "similar_past_cases_found": 1,
+  "case_memory_note": "1 similar closed case(s) retrieved from the graph.",
+  "forensic_summary": "Flagged transaction 3514948 uses card 15868, which is linked to 2,791 other transactions (e.g., 3006526, 3009239, 3014415). No amounts, timestamps, IPs, device IDs, or shipping/billing addresses are available, and identity fields are empty. The request for additional evidence received no response, so uncertainty remains medium. Given the high risk score (87) and the pattern of high transaction volume on the same card, the transaction is blocked and a SAR is filed.",
+  "grounding_status": "passed",
+  "evidence_facts": {
+    "flagged_transaction": "3514948",
+    "cards_linked": [
+      "15868"
+    ],
+    "other_transactions_on_same_card_or_identity": 2791,
+    "sample_of_those_transaction_ids": [
+      "3006526",
+      "3009239",
+      "3014415",
+      "3020418",
+      "3031666",
+      "3038513",
+      "3037275",
+      "3052439",
+      "3049105",
+      "3045250"
+    ],
+    "identity_records_linked": 1,
+    "identity_fields_with_values": [],
+    "not_available_in_evidence": [
+      "transaction amounts",
+      "transaction timestamps",
+      "IP addresses",
+      "shipping/billing addresses",
+      "other customers' account identifiers",
+      "device identifiers"
+    ],
+    "caveat": "The 'ring' is only other transactions sharing a card/identity; it is not proof of fraud."
+  },
+  "decision_log": [
+    {
+      "step": "trigger",
+      "time": "2026-09-25T00:16:33+00:00",
+      "detail": "risk_score: Real-time model scored transaction 3514948 ($111.92, in billing region 264.0) at 0.87. Review and decide."
+    },
+    {
+      "step": "graph_evidence",
+      "time": "2026-09-25T00:16:36+00:00",
+      "detail": {
+        "cards_linked": [
+          "15868"
+        ],
+        "other_transactions_on_same_card_or_identity": 2791,
+        "identity_fields_with_values": []
+      }
+    },
+    {
+      "step": "phase1_assessment",
+      "time": "2026-09-25T00:16:38+00:00",
+      "detail": {
+        "risk_score": 87,
+        "anomaly_type": "high_transaction_volume_same_card",
+        "uncertainty": "Medium",
+        "action": "request_more_evidence",
+        "approval_route": "auto_execute"
+      }
+    },
+    {
+      "step": "case_memory",
+      "time": "2026-09-25T00:16:39+00:00",
+      "detail": "1 similar closed case(s) retrieved"
+    },
+    {
+      "step": "evidence_request",
+      "time": "2026-09-25T00:16:39+00:00",
+      "detail": {
+        "requested": "transaction timestamps, IP addresses, device identifiers, shipping and billing addresses",
+        "status": "no_response",
+        "response": null,
+        "source": "mock_customer_validation_api"
+      }
+    },
+    {
+      "step": "phase2_decision",
+      "time": "2026-09-25T00:16:42+00:00",
+      "detail": {
+        "risk_score": 87,
+        "uncertainty": "Medium",
+        "action": "block_transaction",
+        "sar_required": true,
+        "approval_route": "analyst_approval"
+      }
+    }
+  ],
+  "graph_write_ok": true,
+  "graph_write_error": null
+}

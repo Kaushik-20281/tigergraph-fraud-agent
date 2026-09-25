@@ -1,0 +1,120 @@
+{
+  "case_id": "HHG-008",
+  "flagged_txn_id": "3558054",
+  "trigger_type": "customer_report",
+  "trigger_text": "Customer C13171 message: 'I never made this $55.68 purchase. Please check my card.' Refers to 3558054.",
+  "customer_id": "C13171",
+  "card_id": "C13171-K2",
+  "pipeline_version": "v2-grounded",
+  "policy_source": "internal approval matrix (action-tier: auto-execute / analyst approval / risk-committee approval)",
+  "status": "completed",
+  "risk_score": 45,
+  "anomaly_type": "unauthorized_purchase",
+  "uncertainty_before": "High",
+  "uncertainty_after": "High",
+  "action_before_evidence": "request_more_evidence",
+  "approval_route_before_evidence": "auto_execute",
+  "needs_more_evidence": true,
+  "evidence_request": {
+    "requested": "transaction timestamp, merchant name, IP address, device identifier, billing/shipping address, and any authentication logs for transaction 3558054",
+    "status": "no_response",
+    "response": null,
+    "source": "mock_customer_validation_api"
+  },
+  "action_after_evidence": "request_customer_validation",
+  "approval_route_after_evidence": "auto_execute",
+  "requires_human_approval": false,
+  "approval_reason": "'request_customer_validation' routes to auto_execute (internal approval matrix (action-tier: auto-execute / analyst approval / risk-committee approval)).",
+  "sar_required": false,
+  "similar_past_cases_found": 1,
+  "case_memory_note": "1 similar closed case(s) retrieved from the graph.",
+  "forensic_summary": "Transaction 3558054 on card 10114 is flagged as unauthorized. The graph shows 927 other transactions linked to the same card, but no transaction amounts, timestamps, IPs, device IDs, or address data are available. The requested evidence (timestamp, merchant, IP, device, billing/shipping address, authentication logs) was not returned, leaving key verification details unknown. Because the risk remains moderate (45) but uncertainty is high, the system escalates to a customer validation request to confirm the legitimacy of the purchase before any further action.",
+  "grounding_status": "passed",
+  "evidence_facts": {
+    "flagged_transaction": "3558054",
+    "cards_linked": [
+      "10114"
+    ],
+    "other_transactions_on_same_card_or_identity": 927,
+    "sample_of_those_transaction_ids": [
+      "3280741",
+      "3302372",
+      "3005123",
+      "3288848",
+      "3190392",
+      "3066588",
+      "3009040",
+      "3026870",
+      "3079168",
+      "3084977"
+    ],
+    "identity_records_linked": 1,
+    "identity_fields_with_values": [],
+    "not_available_in_evidence": [
+      "transaction amounts",
+      "transaction timestamps",
+      "IP addresses",
+      "shipping/billing addresses",
+      "other customers' account identifiers",
+      "device identifiers"
+    ],
+    "caveat": "The 'ring' is only other transactions sharing a card/identity; it is not proof of fraud."
+  },
+  "decision_log": [
+    {
+      "step": "trigger",
+      "time": "2026-09-25T00:03:45+00:00",
+      "detail": "customer_report: Customer C13171 message: 'I never made this $55.68 purchase. Please check my card.' Refers to 3558054."
+    },
+    {
+      "step": "graph_evidence",
+      "time": "2026-09-25T00:03:47+00:00",
+      "detail": {
+        "cards_linked": [
+          "10114"
+        ],
+        "other_transactions_on_same_card_or_identity": 927,
+        "identity_fields_with_values": []
+      }
+    },
+    {
+      "step": "phase1_assessment",
+      "time": "2026-09-25T00:03:48+00:00",
+      "detail": {
+        "risk_score": 45,
+        "anomaly_type": "unauthorized_purchase",
+        "uncertainty": "High",
+        "action": "request_more_evidence",
+        "approval_route": "auto_execute"
+      }
+    },
+    {
+      "step": "case_memory",
+      "time": "2026-09-25T00:03:50+00:00",
+      "detail": "1 similar closed case(s) retrieved"
+    },
+    {
+      "step": "evidence_request",
+      "time": "2026-09-25T00:03:50+00:00",
+      "detail": {
+        "requested": "transaction timestamp, merchant name, IP address, device identifier, billing/shipping address, and any authentication logs for transaction 3558054",
+        "status": "no_response",
+        "response": null,
+        "source": "mock_customer_validation_api"
+      }
+    },
+    {
+      "step": "phase2_decision",
+      "time": "2026-09-25T00:03:51+00:00",
+      "detail": {
+        "risk_score": 45,
+        "uncertainty": "High",
+        "action": "request_customer_validation",
+        "sar_required": false,
+        "approval_route": "auto_execute"
+      }
+    }
+  ],
+  "graph_write_ok": true,
+  "graph_write_error": null
+}

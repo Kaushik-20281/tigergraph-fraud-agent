@@ -1,0 +1,151 @@
+{
+  "case_id": "HHG-009",
+  "flagged_txn_id": "3581141",
+  "trigger_type": "customer_report",
+  "trigger_text": "Customer C08299 message: 'I never made this $30.02 purchase. Please check my card.' Refers to 3581141.",
+  "customer_id": "C08299",
+  "card_id": "C08299-K1",
+  "pipeline_version": "v2-grounded",
+  "policy_source": "internal approval matrix (action-tier: auto-execute / analyst approval / risk-committee approval)",
+  "status": "completed",
+  "risk_score": 55,
+  "anomaly_type": "unauthorized_transaction",
+  "uncertainty_before": "Medium",
+  "uncertainty_after": "Medium",
+  "action_before_evidence": "request_more_evidence",
+  "approval_route_before_evidence": "auto_execute",
+  "needs_more_evidence": true,
+  "evidence_request": {
+    "requested": "transaction_timestamp, merchant_name, transaction_amount, IP_address, billing_address, shipping_address, card_present_flag",
+    "status": "no_response",
+    "response": null,
+    "source": "mock_customer_validation_api"
+  },
+  "action_after_evidence": "step_up_authentication",
+  "approval_route_after_evidence": "auto_execute",
+  "requires_human_approval": false,
+  "approval_reason": "'step_up_authentication' routes to auto_execute (internal approval matrix (action-tier: auto-execute / analyst approval / risk-committee approval)).",
+  "sar_required": false,
+  "similar_past_cases_found": 1,
+  "case_memory_note": "1 similar closed case(s) retrieved from the graph.",
+  "forensic_summary": "The transaction 3581141 is flagged and linked to card 13026. There are 55 other transactions sharing the same card/identity, with sample IDs such as 3330698 and 3545489, and one identity record containing fields like DeviceType and id_01. Critical details (timestamp, amount, IP, addresses, card_present_flag) are not available, and the requested evidence was not provided, leaving uncertainty unchanged. Given moderate risk and missing key data, a step\u2011up authentication is recommended to verify legitimacy before proceeding.",
+  "grounding_status": "passed",
+  "evidence_facts": {
+    "flagged_transaction": "3581141",
+    "cards_linked": [
+      "13026"
+    ],
+    "other_transactions_on_same_card_or_identity": 55,
+    "sample_of_those_transaction_ids": [
+      "3330698",
+      "3330761",
+      "3588905",
+      "3116388",
+      "3151767",
+      "3089258",
+      "3330702",
+      "3545489",
+      "3588919",
+      "3507659"
+    ],
+    "identity_records_linked": 1,
+    "identity_fields_with_values": [
+      "DeviceType",
+      "id_01",
+      "id_02",
+      "id_11",
+      "id_12",
+      "id_13",
+      "id_15",
+      "id_16",
+      "id_28",
+      "id_29",
+      "id_34",
+      "id_35",
+      "id_36",
+      "id_37",
+      "id_38"
+    ],
+    "not_available_in_evidence": [
+      "transaction amounts",
+      "transaction timestamps",
+      "IP addresses",
+      "shipping/billing addresses",
+      "other customers' account identifiers"
+    ],
+    "caveat": "The 'ring' is only other transactions sharing a card/identity; it is not proof of fraud."
+  },
+  "decision_log": [
+    {
+      "step": "trigger",
+      "time": "2026-09-25T00:04:00+00:00",
+      "detail": "customer_report: Customer C08299 message: 'I never made this $30.02 purchase. Please check my card.' Refers to 3581141."
+    },
+    {
+      "step": "graph_evidence",
+      "time": "2026-09-25T00:04:01+00:00",
+      "detail": {
+        "cards_linked": [
+          "13026"
+        ],
+        "other_transactions_on_same_card_or_identity": 55,
+        "identity_fields_with_values": [
+          "DeviceType",
+          "id_01",
+          "id_02",
+          "id_11",
+          "id_12",
+          "id_13",
+          "id_15",
+          "id_16",
+          "id_28",
+          "id_29",
+          "id_34",
+          "id_35",
+          "id_36",
+          "id_37",
+          "id_38"
+        ]
+      }
+    },
+    {
+      "step": "phase1_assessment",
+      "time": "2026-09-25T00:04:03+00:00",
+      "detail": {
+        "risk_score": 55,
+        "anomaly_type": "unauthorized_transaction",
+        "uncertainty": "Medium",
+        "action": "request_more_evidence",
+        "approval_route": "auto_execute"
+      }
+    },
+    {
+      "step": "case_memory",
+      "time": "2026-09-25T00:04:04+00:00",
+      "detail": "1 similar closed case(s) retrieved"
+    },
+    {
+      "step": "evidence_request",
+      "time": "2026-09-25T00:04:04+00:00",
+      "detail": {
+        "requested": "transaction_timestamp, merchant_name, transaction_amount, IP_address, billing_address, shipping_address, card_present_flag",
+        "status": "no_response",
+        "response": null,
+        "source": "mock_customer_validation_api"
+      }
+    },
+    {
+      "step": "phase2_decision",
+      "time": "2026-09-25T00:04:06+00:00",
+      "detail": {
+        "risk_score": 55,
+        "uncertainty": "Medium",
+        "action": "step_up_authentication",
+        "sar_required": false,
+        "approval_route": "auto_execute"
+      }
+    }
+  ],
+  "graph_write_ok": true,
+  "graph_write_error": null
+}

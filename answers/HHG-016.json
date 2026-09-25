@@ -1,0 +1,120 @@
+{
+  "case_id": "HHG-016",
+  "flagged_txn_id": "3534820",
+  "trigger_type": "customer_report",
+  "trigger_text": "Customer C09988 message: 'I never made this $59.67 purchase. Please check my card.' Refers to 3534820.",
+  "customer_id": "C09988",
+  "card_id": "C09988-K1",
+  "pipeline_version": "v2-grounded",
+  "policy_source": "internal approval matrix (action-tier: auto-execute / analyst approval / risk-committee approval)",
+  "status": "completed",
+  "risk_score": 55,
+  "anomaly_type": "unauthorized_transaction",
+  "uncertainty_before": "High",
+  "uncertainty_after": "High",
+  "action_before_evidence": "request_more_evidence",
+  "approval_route_before_evidence": "auto_execute",
+  "needs_more_evidence": true,
+  "evidence_request": {
+    "requested": "transaction timestamp, merchant name, IP address, device identifier, shipping/billing address",
+    "status": "no_response",
+    "response": null,
+    "source": "mock_customer_validation_api"
+  },
+  "action_after_evidence": "step_up_authentication",
+  "approval_route_after_evidence": "auto_execute",
+  "requires_human_approval": false,
+  "approval_reason": "'step_up_authentication' routes to auto_execute (internal approval matrix (action-tier: auto-execute / analyst approval / risk-committee approval)).",
+  "sar_required": false,
+  "similar_past_cases_found": 1,
+  "case_memory_note": "1 similar closed case(s) retrieved from the graph.",
+  "forensic_summary": "The flagged transaction 3534820 uses card 11242, which is linked to 60 other transactions (sample IDs provided). No transaction amounts, timestamps, IPs, device IDs, or address data are available, and identity fields are empty. The ring of related transactions alone does not prove fraud. With high uncertainty and moderate risk, a step\u2011up authentication is chosen to verify the user before completing the transaction while avoiding premature blocking.",
+  "grounding_status": "passed",
+  "evidence_facts": {
+    "flagged_transaction": "3534820",
+    "cards_linked": [
+      "11242"
+    ],
+    "other_transactions_on_same_card_or_identity": 60,
+    "sample_of_those_transaction_ids": [
+      "3330430",
+      "3322716",
+      "3557399",
+      "3099865",
+      "3164170",
+      "3244254",
+      "3374563",
+      "3364287",
+      "3295579",
+      "3285152"
+    ],
+    "identity_records_linked": 1,
+    "identity_fields_with_values": [],
+    "not_available_in_evidence": [
+      "transaction amounts",
+      "transaction timestamps",
+      "IP addresses",
+      "shipping/billing addresses",
+      "other customers' account identifiers",
+      "device identifiers"
+    ],
+    "caveat": "The 'ring' is only other transactions sharing a card/identity; it is not proof of fraud."
+  },
+  "decision_log": [
+    {
+      "step": "trigger",
+      "time": "2026-09-25T00:05:48+00:00",
+      "detail": "customer_report: Customer C09988 message: 'I never made this $59.67 purchase. Please check my card.' Refers to 3534820."
+    },
+    {
+      "step": "graph_evidence",
+      "time": "2026-09-25T00:05:49+00:00",
+      "detail": {
+        "cards_linked": [
+          "11242"
+        ],
+        "other_transactions_on_same_card_or_identity": 60,
+        "identity_fields_with_values": []
+      }
+    },
+    {
+      "step": "phase1_assessment",
+      "time": "2026-09-25T00:05:50+00:00",
+      "detail": {
+        "risk_score": 55,
+        "anomaly_type": "unauthorized_transaction",
+        "uncertainty": "High",
+        "action": "request_more_evidence",
+        "approval_route": "auto_execute"
+      }
+    },
+    {
+      "step": "case_memory",
+      "time": "2026-09-25T00:05:51+00:00",
+      "detail": "1 similar closed case(s) retrieved"
+    },
+    {
+      "step": "evidence_request",
+      "time": "2026-09-25T00:05:51+00:00",
+      "detail": {
+        "requested": "transaction timestamp, merchant name, IP address, device identifier, shipping/billing address",
+        "status": "no_response",
+        "response": null,
+        "source": "mock_customer_validation_api"
+      }
+    },
+    {
+      "step": "phase2_decision",
+      "time": "2026-09-25T00:05:53+00:00",
+      "detail": {
+        "risk_score": 55,
+        "uncertainty": "High",
+        "action": "step_up_authentication",
+        "sar_required": false,
+        "approval_route": "auto_execute"
+      }
+    }
+  ],
+  "graph_write_ok": true,
+  "graph_write_error": null
+}

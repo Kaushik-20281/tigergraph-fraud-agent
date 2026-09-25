@@ -1,0 +1,120 @@
+{
+  "case_id": "HHG-018",
+  "flagged_txn_id": "3491361",
+  "trigger_type": "customer_report",
+  "trigger_text": "Customer C02354 message: 'I never made this $39.08 purchase. Please check my card.' Refers to 3491361.",
+  "customer_id": "C02354",
+  "card_id": "C02354-K2",
+  "pipeline_version": "v2-grounded",
+  "policy_source": "internal approval matrix (action-tier: auto-execute / analyst approval / risk-committee approval)",
+  "status": "completed",
+  "risk_score": 70,
+  "anomaly_type": "unauthorized_charge",
+  "uncertainty_before": "High",
+  "uncertainty_after": "High",
+  "action_before_evidence": "request_more_evidence",
+  "approval_route_before_evidence": "auto_execute",
+  "needs_more_evidence": true,
+  "evidence_request": {
+    "requested": "transaction timestamp, merchant name, IP address, device identifier, shipping and billing addresses, detailed card usage logs for transaction 3491361",
+    "status": "no_response",
+    "response": null,
+    "source": "mock_customer_validation_api"
+  },
+  "action_after_evidence": "request_customer_validation",
+  "approval_route_after_evidence": "auto_execute",
+  "requires_human_approval": false,
+  "approval_reason": "'request_customer_validation' routes to auto_execute (internal approval matrix (action-tier: auto-execute / analyst approval / risk-committee approval)).",
+  "sar_required": false,
+  "similar_past_cases_found": 1,
+  "case_memory_note": "1 similar closed case(s) retrieved from the graph.",
+  "forensic_summary": "Transaction 3491361 is flagged and linked to card 19248, which has a large ring of 7,090 other transactions (e.g., 3312421, 3005621). No timestamps, amounts, IPs, device IDs, or address data are available, and the ring alone does not prove fraud. Because key evidentiary elements are missing, uncertainty stays high, prompting a request for customer validation before any blocking action.",
+  "grounding_status": "passed",
+  "evidence_facts": {
+    "flagged_transaction": "3491361",
+    "cards_linked": [
+      "19248"
+    ],
+    "other_transactions_on_same_card_or_identity": 7090,
+    "sample_of_those_transaction_ids": [
+      "3312421",
+      "3005621",
+      "3004547",
+      "3004663",
+      "3005954",
+      "3003299",
+      "3000704",
+      "3001346",
+      "3000513",
+      "3001775"
+    ],
+    "identity_records_linked": 1,
+    "identity_fields_with_values": [],
+    "not_available_in_evidence": [
+      "transaction amounts",
+      "transaction timestamps",
+      "IP addresses",
+      "shipping/billing addresses",
+      "other customers' account identifiers",
+      "device identifiers"
+    ],
+    "caveat": "The 'ring' is only other transactions sharing a card/identity; it is not proof of fraud."
+  },
+  "decision_log": [
+    {
+      "step": "trigger",
+      "time": "2026-09-25T00:06:17+00:00",
+      "detail": "customer_report: Customer C02354 message: 'I never made this $39.08 purchase. Please check my card.' Refers to 3491361."
+    },
+    {
+      "step": "graph_evidence",
+      "time": "2026-09-25T00:06:19+00:00",
+      "detail": {
+        "cards_linked": [
+          "19248"
+        ],
+        "other_transactions_on_same_card_or_identity": 7090,
+        "identity_fields_with_values": []
+      }
+    },
+    {
+      "step": "phase1_assessment",
+      "time": "2026-09-25T00:06:20+00:00",
+      "detail": {
+        "risk_score": 70,
+        "anomaly_type": "unauthorized_charge",
+        "uncertainty": "High",
+        "action": "request_more_evidence",
+        "approval_route": "auto_execute"
+      }
+    },
+    {
+      "step": "case_memory",
+      "time": "2026-09-25T00:06:21+00:00",
+      "detail": "1 similar closed case(s) retrieved"
+    },
+    {
+      "step": "evidence_request",
+      "time": "2026-09-25T00:06:21+00:00",
+      "detail": {
+        "requested": "transaction timestamp, merchant name, IP address, device identifier, shipping and billing addresses, detailed card usage logs for transaction 3491361",
+        "status": "no_response",
+        "response": null,
+        "source": "mock_customer_validation_api"
+      }
+    },
+    {
+      "step": "phase2_decision",
+      "time": "2026-09-25T00:06:23+00:00",
+      "detail": {
+        "risk_score": 70,
+        "uncertainty": "High",
+        "action": "request_customer_validation",
+        "sar_required": false,
+        "approval_route": "auto_execute"
+      }
+    }
+  ],
+  "graph_write_ok": true,
+  "graph_write_error": null
+}

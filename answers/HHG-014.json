@@ -1,0 +1,120 @@
+{
+  "case_id": "HHG-014",
+  "flagged_txn_id": "3478561",
+  "trigger_type": "analyst_request",
+  "trigger_text": "Analyst request: several cards this month show purchases from the same unusual device profile. Review transaction 3478561 on card C13487-K1 and look for related activity.",
+  "customer_id": "C13487",
+  "card_id": "C13487-K1",
+  "pipeline_version": "v2-grounded",
+  "policy_source": "internal approval matrix (action-tier: auto-execute / analyst approval / risk-committee approval)",
+  "status": "completed",
+  "risk_score": 55,
+  "anomaly_type": "linked_cards_shared_device",
+  "uncertainty_before": "High",
+  "uncertainty_after": "High",
+  "action_before_evidence": "request_more_evidence",
+  "approval_route_before_evidence": "auto_execute",
+  "needs_more_evidence": true,
+  "evidence_request": {
+    "requested": "device identifiers, IP addresses, timestamps, transaction amounts, and shipping/billing addresses for transaction 3478561 and the related transactions on the same card/identity",
+    "status": "no_response",
+    "response": null,
+    "source": "mock_customer_validation_api"
+  },
+  "action_after_evidence": "request_customer_validation",
+  "approval_route_after_evidence": "auto_execute",
+  "requires_human_approval": false,
+  "approval_reason": "'request_customer_validation' routes to auto_execute (internal approval matrix (action-tier: auto-execute / analyst approval / risk-committee approval)).",
+  "sar_required": false,
+  "similar_past_cases_found": 1,
+  "case_memory_note": "1 similar closed case(s) retrieved from the graph.",
+  "forensic_summary": "Transaction 3478561 is linked to card 13250, which has 84 other transactions (e.g., 3156179, 3124990, 3266679). No device identifiers, IPs, timestamps, amounts, or shipping/billing addresses are available, and the request for these details received no response. The existing ring of shared\u2011card activity alone does not prove fraud, leaving high uncertainty. To resolve, we request customer validation before any further action.",
+  "grounding_status": "passed",
+  "evidence_facts": {
+    "flagged_transaction": "3478561",
+    "cards_linked": [
+      "13250"
+    ],
+    "other_transactions_on_same_card_or_identity": 84,
+    "sample_of_those_transaction_ids": [
+      "3156179",
+      "3124990",
+      "3266679",
+      "3385224",
+      "3358389",
+      "3138748",
+      "3391017",
+      "3460634",
+      "3421895",
+      "3551004"
+    ],
+    "identity_records_linked": 1,
+    "identity_fields_with_values": [],
+    "not_available_in_evidence": [
+      "transaction amounts",
+      "transaction timestamps",
+      "IP addresses",
+      "shipping/billing addresses",
+      "other customers' account identifiers",
+      "device identifiers"
+    ],
+    "caveat": "The 'ring' is only other transactions sharing a card/identity; it is not proof of fraud."
+  },
+  "decision_log": [
+    {
+      "step": "trigger",
+      "time": "2026-09-25T00:05:18+00:00",
+      "detail": "analyst_request: Analyst request: several cards this month show purchases from the same unusual device profile. Review transaction 3478561 on card C13487-K1 and look for related activity."
+    },
+    {
+      "step": "graph_evidence",
+      "time": "2026-09-25T00:05:19+00:00",
+      "detail": {
+        "cards_linked": [
+          "13250"
+        ],
+        "other_transactions_on_same_card_or_identity": 84,
+        "identity_fields_with_values": []
+      }
+    },
+    {
+      "step": "phase1_assessment",
+      "time": "2026-09-25T00:05:20+00:00",
+      "detail": {
+        "risk_score": 55,
+        "anomaly_type": "linked_cards_shared_device",
+        "uncertainty": "High",
+        "action": "request_more_evidence",
+        "approval_route": "auto_execute"
+      }
+    },
+    {
+      "step": "case_memory",
+      "time": "2026-09-25T00:05:21+00:00",
+      "detail": "1 similar closed case(s) retrieved"
+    },
+    {
+      "step": "evidence_request",
+      "time": "2026-09-25T00:05:21+00:00",
+      "detail": {
+        "requested": "device identifiers, IP addresses, timestamps, transaction amounts, and shipping/billing addresses for transaction 3478561 and the related transactions on the same card/identity",
+        "status": "no_response",
+        "response": null,
+        "source": "mock_customer_validation_api"
+      }
+    },
+    {
+      "step": "phase2_decision",
+      "time": "2026-09-25T00:05:24+00:00",
+      "detail": {
+        "risk_score": 55,
+        "uncertainty": "High",
+        "action": "request_customer_validation",
+        "sar_required": false,
+        "approval_route": "auto_execute"
+      }
+    }
+  ],
+  "graph_write_ok": true,
+  "graph_write_error": null
+}

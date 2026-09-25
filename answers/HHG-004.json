@@ -1,0 +1,120 @@
+{
+  "case_id": "HHG-004",
+  "flagged_txn_id": "3583227",
+  "trigger_type": "customer_report",
+  "trigger_text": "Customer C08106 message: 'I never made this $128.33 purchase. Please check my card.' Refers to 3583227.",
+  "customer_id": "C08106",
+  "card_id": "C08106-K1",
+  "pipeline_version": "v2-grounded",
+  "policy_source": "internal approval matrix (action-tier: auto-execute / analyst approval / risk-committee approval)",
+  "status": "completed",
+  "risk_score": 60,
+  "anomaly_type": "unauthorized_transaction",
+  "uncertainty_before": "High",
+  "uncertainty_after": "High",
+  "action_before_evidence": "request_more_evidence",
+  "approval_route_before_evidence": "auto_execute",
+  "needs_more_evidence": true,
+  "evidence_request": {
+    "requested": "transaction amount, timestamp, merchant name, IP address, device identifier, billing/shipping address",
+    "status": "no_response",
+    "response": null,
+    "source": "mock_customer_validation_api"
+  },
+  "action_after_evidence": "block_transaction",
+  "approval_route_after_evidence": "analyst_approval",
+  "requires_human_approval": true,
+  "approval_reason": "'block_transaction' routes to analyst_approval (internal approval matrix (action-tier: auto-execute / analyst approval / risk-committee approval)).",
+  "sar_required": false,
+  "similar_past_cases_found": 1,
+  "case_memory_note": "1 similar closed case(s) retrieved from the graph.",
+  "forensic_summary": "The flagged transaction 3583227 uses card 21429, which has 215 other transactions (e.g., 3092419, 3200962). No transaction amounts, timestamps, IPs, device IDs, or address data are available, and the evidence request received no response, leaving key fraud indicators unknown. Given the high uncertainty and the pattern of unauthorized use, the safest response is to block the transaction.",
+  "grounding_status": "passed",
+  "evidence_facts": {
+    "flagged_transaction": "3583227",
+    "cards_linked": [
+      "21429"
+    ],
+    "other_transactions_on_same_card_or_identity": 215,
+    "sample_of_those_transaction_ids": [
+      "3092419",
+      "3200962",
+      "3550051",
+      "3560751",
+      "3083251",
+      "3087613",
+      "3057975",
+      "3043674",
+      "3041189",
+      "3087647"
+    ],
+    "identity_records_linked": 1,
+    "identity_fields_with_values": [],
+    "not_available_in_evidence": [
+      "transaction amounts",
+      "transaction timestamps",
+      "IP addresses",
+      "shipping/billing addresses",
+      "other customers' account identifiers",
+      "device identifiers"
+    ],
+    "caveat": "The 'ring' is only other transactions sharing a card/identity; it is not proof of fraud."
+  },
+  "decision_log": [
+    {
+      "step": "trigger",
+      "time": "2026-09-25T00:15:47+00:00",
+      "detail": "customer_report: Customer C08106 message: 'I never made this $128.33 purchase. Please check my card.' Refers to 3583227."
+    },
+    {
+      "step": "graph_evidence",
+      "time": "2026-09-25T00:15:49+00:00",
+      "detail": {
+        "cards_linked": [
+          "21429"
+        ],
+        "other_transactions_on_same_card_or_identity": 215,
+        "identity_fields_with_values": []
+      }
+    },
+    {
+      "step": "phase1_assessment",
+      "time": "2026-09-25T00:15:51+00:00",
+      "detail": {
+        "risk_score": 60,
+        "anomaly_type": "unauthorized_transaction",
+        "uncertainty": "High",
+        "action": "request_more_evidence",
+        "approval_route": "auto_execute"
+      }
+    },
+    {
+      "step": "case_memory",
+      "time": "2026-09-25T00:15:52+00:00",
+      "detail": "1 similar closed case(s) retrieved"
+    },
+    {
+      "step": "evidence_request",
+      "time": "2026-09-25T00:15:52+00:00",
+      "detail": {
+        "requested": "transaction amount, timestamp, merchant name, IP address, device identifier, billing/shipping address",
+        "status": "no_response",
+        "response": null,
+        "source": "mock_customer_validation_api"
+      }
+    },
+    {
+      "step": "phase2_decision",
+      "time": "2026-09-25T00:15:53+00:00",
+      "detail": {
+        "risk_score": 60,
+        "uncertainty": "High",
+        "action": "block_transaction",
+        "sar_required": false,
+        "approval_route": "analyst_approval"
+      }
+    }
+  ],
+  "graph_write_ok": true,
+  "graph_write_error": null
+}
