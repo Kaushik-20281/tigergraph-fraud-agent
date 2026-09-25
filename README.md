@@ -4,7 +4,8 @@ An AI agent for the TigerGraph Agentic Fraud Investigation hackathon. It investi
 
 ## Architecture
 
-- **Intelligence Engine**: Google Gemini API (`[exact model name used]`) - used for reasoning, evidence synthesis, and generating explanations
+- **Intelligence Engine**: Groq API (`openai/gpt-oss-120b`) - used for reasoning, evidence synthesis, and generating explanations
+- **Agent Framework**: Custom Python implementation (no external agent framework) - direct API calls and orchestration logic in `agent.py`
 - **Graph Database**: TigerGraph Cloud (Savanna) - stores transactions, accounts, devices, identities, and case records; used for graph traversal and relationship analysis via GSQL
 - **Interface**: Streamlit dashboard (`app.py`) - Case Queue, risk score, uncertainty before/after evidence, decision and approval routing, and explainability panel
 - **Output**: Case records and Suspicious Activity Reports (SARs) in JSON, written to both local files and the graph
@@ -48,7 +49,7 @@ Create a `.env` file in the project root with:
 ```
 PROD_TG_HOST=your_tigergraph_host
 PROD_TG_SECRET=your_tigergraph_secret
-GEMINI_API_KEY=your_gemini_key
+GROQ_API_KEY=your_groq_api_key
 ```
 
 `.env` is excluded from version control via `.gitignore` - never commit real credentials.
